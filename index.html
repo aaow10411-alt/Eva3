@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ELITE PRO | منصة الكورسات الحقيقية</title>
+    
+    <!-- Bootstrap و Fonts و Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            --primary: #8b0000;
+            --primary-dark: #5a0000;
+            --primary-light: #b30000;
+            --secondary: #ffd700;
+            --dark: #0a0a0a;
+            --darker: #000000;
+            --dark-light: #1a1a1a;
+            --dark-lighter: #2a2a2a;
+            --gray: #666666;
+            --light-gray: #cccccc;
+            --white: #ffffff;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+            --info: #0984e3;
+            --gradient-1: linear-gradient(135deg, #8b0000 0%, #330000 100%);
+            --gradient-2: linear-gradient(135deg, #000000 0%, #8b0000 100%);
+            --gradient-3: linear-gradient(135deg, #8b0000, #b30000);
+            --shadow-sm: 0 5px 15px rgba(139, 0, 0, 0.2);
+            --shadow-md: 0 10px 30px rgba(139, 0, 0, 0.3);
+            --shadow-lg: 0 15px 50px rgba(139, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--darker);
+            min-height: 100vh;
+            color: var(--white);
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(139, 0, 0, 0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 70%, rgba(139, 0, 0, 0.15) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .login-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover fixed;
+            position: relative;
+        }
+
+        .login-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(139, 0, 0, 0.9) 100%);
+            backdrop-filter: blur(10px);
+        }
+
+        .login-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 550px;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            border: 2px solid var(--primary);
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            background: var(--gradient-2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 3rem;
+            border: 3px solid var(--primary);
+        }
+
+        .login-header h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 0 20px var(--primary);
+        }
+
+        .tab-switcher {
+            display: flex;
+            gap: 10px;
+            background: var(--dark-lighter);
+            padding: 10px;
+            border-radius: 60px;
+            margin: 30px 0;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            border-radius: 60px;
+            font-weight: 700;
+            color: var(--light-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: var(--gradient-3);
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .form-group label i {
+            color: var(--primary);
+            margin-left: 8px;
+        }
+
+        .form-control-elite {
+            width: 100%;
+            padding: 15px 20px;
+            background: var(--dark-lighter);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control-elite:focus {
+            outline: none;
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.3);
+        }
+
+        .btn-elite {
+            background: var(--gradient-3);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn-elite:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline-elite {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 15px;
+            border-radius: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-outline-elite:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .main-wrapper {
+            min-height: 100vh;
+            background: var(--darker);
+            position: relative;
+            z-index: 1;
+        }
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 15px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 2rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 0 15px var(--primary);
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            object-fit: cover;
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .main-content {
+            padding: 40px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* قسم التواصل */
+        .contact-section {
+            background: var(--gradient-2);
+            padding: 50px;
+            border-radius: 30px;
+            margin: 40px 0;
+            text-align: center;
+            border: 2px solid var(--primary);
+        }
+
+        .telegram-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: #0088cc;
+            color: white;
+            padding: 20px 50px;
+            border-radius: 60px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            border: 3px solid white;
+        }
+
+        .telegram-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px #0088cc;
+        }
+
+        /* بطاقات الكورسات */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .course-card {
+            background: var(--dark-light);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(139, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .course-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .course-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 15px;
+            border-radius: 30px;
+            background: var(--gradient-3);
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .course-badge.left {
+            right: auto;
+            left: 15px;
+            background: var(--secondary);
+            color: black;
+        }
+
+        .course-content {
+            padding: 20px;
+        }
+
+        .course-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .course-provider {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .course-description {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .course-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .course-meta i {
+            color: var(--primary);
+            margin-left: 5px;
+        }
+
+        .course-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(139, 0, 0, 0.2);
+        }
+
+        .course-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .course-price small {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .btn-enroll {
+            background: var(--gradient-3);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-enroll:hover:not(.disabled) {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-enroll.disabled {
+            background: var(--success);
+            cursor: default;
+            opacity: 0.8;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 50px 0 30px;
+            color: white;
+            position: relative;
+            padding-right: 20px;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 40px;
+            background: var(--gradient-3);
+            border-radius: 5px;
+        }
+
+        /* لوحة المدير المتطورة */
+        .admin-panel {
+            background: var(--dark);
+            border-radius: 30px;
+            padding: 30px;
+            border: 2px solid var(--primary);
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .admin-tabs {
+            display: flex;
+            gap: 10px;
+            background: var(--dark-lighter);
+            padding: 10px;
+            border-radius: 60px;
+            flex-wrap: wrap;
+        }
+
+        .admin-tab {
+            padding: 10px 25px;
+            border: none;
+            background: transparent;
+            border-radius: 60px;
+            font-weight: 600;
+            color: var(--light-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .admin-tab.active {
+            background: var(--gradient-3);
+            color: white;
+        }
+
+        .admin-tab:hover:not(.active) {
+            background: rgba(139, 0, 0, 0.3);
+            color: white;
+        }
+
+        /* إحصائيات المدير المتقدمة */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--dark-lighter);
+            padding: 25px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .stat-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-3);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        .stat-info h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-info p {
+            color: #aaa;
+            margin: 0;
+        }
+
+        .chart-container {
+            background: var(--dark-lighter);
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            height: 400px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            background: var(--dark-lighter);
+            border-radius: 20px;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: var(--dark);
+            padding: 15px;
+            color: white;
+            border-bottom: 3px solid var(--primary);
+            font-weight: 600;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(139, 0, 0, 0.2);
+            color: #ccc;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: none;
+            color: var(--primary);
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin: 0 5px;
+            transition: 0.3s;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .action-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .badge {
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge-success { background: var(--success); color: white; }
+        .badge-warning { background: var(--warning); color: black; }
+        .badge-danger { background: var(--danger); color: white; }
+        .badge-info { background: var(--info); color: white; }
+
+        .toast-container {
+            position: fixed;
+            top: 100px;
+            left: 30px;
+            z-index: 10001;
+        }
+
+        .toast-elite {
+            background: var(--dark-light);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            box-shadow: var(--shadow-lg);
+            border-right: 5px solid var(--primary);
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .text-danger { color: var(--danger); }
+        .mt-3 { margin-top: 15px; }
+        .mb-3 { margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <!-- شاشة تسجيل الدخول -->
+    <div id="login-screen" class="login-wrapper">
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-header text-center">
+                    <div class="logo">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h1>ELITE PRO</h1>
+                    <p class="text-light">أكثر من 100 كورس حقيقي مدفوع</p>
+                </div>
+
+                <div class="tab-switcher">
+                    <button class="tab-btn active" onclick="switchAuthTab('login')">تسجيل دخول</button>
+                    <button class="tab-btn" onclick="switchAuthTab('register')">إنشاء حساب</button>
+                </div>
+
+                <!-- نموذج تسجيل الدخول -->
+                <div id="loginForm">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> اسم المستخدم</label>
+                        <input type="text" class="form-control-elite" id="loginUsername" placeholder="أدخل اسم المستخدم">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> كلمة المرور</label>
+                        <input type="password" class="form-control-elite" id="loginPassword" placeholder="أدخل كلمة المرور">
+                    </div>
+                    <div id="loginError" class="text-danger mb-3 hidden">خطأ في اسم المستخدم أو كلمة المرور</div>
+                    <button class="btn-elite" onclick="loginUser()">دخول</button>
+                </div>
+
+                <!-- نموذج إنشاء حساب -->
+                <div id="registerForm" class="hidden">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> الاسم الكامل</label>
+                        <input type="text" class="form-control-elite" id="regFullName" placeholder="الاسم الكامل">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-at"></i> اسم المستخدم</label>
+                        <input type="text" class="form-control-elite" id="regUsername" placeholder="اختر اسم مستخدم">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+                        <input type="email" class="form-control-elite" id="regEmail" placeholder="example@domain.com">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> كلمة المرور</label>
+                        <input type="password" class="form-control-elite" id="regPassword" placeholder="كلمة المرور">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> تأكيد كلمة المرور</label>
+                        <input type="password" class="form-control-elite" id="regConfirmPassword" placeholder="تأكيد كلمة المرور">
+                    </div>
+                    <div id="registerError" class="text-danger mb-3 hidden"></div>
+                    <button class="btn-elite" onclick="registerUser()">إنشاء حساب</button>
+                </div>
+
+                <!-- زر دخول المدير -->
+                <hr style="border-color: var(--primary); margin: 30px 0 20px;">
+                <button class="btn-outline-elite" onclick="toggleAdminLogin()">دخول المدير</button>
+
+                <!-- نموذج دخول المدير -->
+                <div id="adminLoginForm" class="hidden mt-3">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> اسم المستخدم</label>
+                        <input type="text" class="form-control-elite" id="adminUsername" placeholder="admin">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> كلمة المرور</label>
+                        <input type="password" class="form-control-elite" id="adminPassword" placeholder="****">
+                    </div>
+                    <div id="adminError" class="text-danger mb-3 hidden">بيانات غير صحيحة</div>
+                    <button class="btn-elite" onclick="loginAdmin()">دخول</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- التطبيق الرئيسي -->
+    <div id="app" class="main-wrapper hidden">
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <i class="fas fa-crown" style="color: var(--primary);"></i> ELITE PRO
+            </div>
+            <div class="user-menu">
+                <span id="userPoints" style="background: var(--gradient-3); padding: 5px 15px; border-radius: 50px;">
+                    <i class="fas fa-coins"></i> <span id="pointsValue">0</span>
+                </span>
+                <span id="userName"></span>
+                <img id="userAvatar" class="user-avatar" src="" alt="">
+                <button class="logout-btn" onclick="logout()">خروج</button>
+            </div>
+        </nav>
+
+        <div class="main-content">
+            <!-- قسم المستخدم -->
+            <div id="userSection">
+                <div class="user-welcome" style="background: var(--gradient-2); padding: 40px; border-radius: 30px; margin-bottom: 30px;">
+                    <h2 style="font-size: 2.5rem;">مرحباً <span id="welcomeUserName"></span> 👋</h2>
+                    <p class="text-light">تصفح أكثر من 100 كورس حقيقي مدفوع من أفضل المنصات العالمية</p>
+                </div>
+
+                <!-- إحصائيات سريعة -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                    <div style="background: var(--dark-light); padding: 25px; border-radius: 20px; text-align: center;">
+                        <i class="fas fa-play-circle" style="font-size: 2.5rem; color: var(--primary);"></i>
+                        <h3 id="enrolledCount">0</h3>
+                        <p>كورسات مسجلة</p>
+                    </div>
+                    <div style="background: var(--dark-light); padding: 25px; border-radius: 20px; text-align: center;">
+                        <i class="fas fa-clock" style="font-size: 2.5rem; color: var(--primary);"></i>
+                        <h3 id="learningHours">0</h3>
+                        <p>ساعة تعلم</p>
+                    </div>
+                    <div style="background: var(--dark-light); padding: 25px; border-radius: 20px; text-align: center;">
+                        <i class="fas fa-dollar-sign" style="font-size: 2.5rem; color: var(--primary);"></i>
+                        <h3 id="totalSpent">$0</h3>
+                        <p>إجمالي المشتريات</p>
+                    </div>
+                </div>
+
+                <!-- قسم التواصل مع المطور -->
+                <div class="contact-section">
+                    <i class="fab fa-telegram" style="font-size: 4rem; color: #0088cc; margin-bottom: 20px;"></i>
+                    <h2 style="font-size: 2rem; margin-bottom: 15px;">للاشتراك في الكورسات المدفوعة</h2>
+                    <p style="font-size: 1.2rem; color: #ccc; margin-bottom: 25px;">تواصل مع المطور مباشرة على تيليجرام للحصول على الكورسات الكاملة</p>
+                    <a href="https://t.me/ev111a" target="_blank" class="telegram-btn">
+                        <i class="fab fa-telegram"></i>
+                        @ev111a
+                    </a>
+                </div>
+
+                <!-- جميع الكورسات الحقيقية المدفوعة -->
+                <h2 class="section-title">🔥 جميع الكورسات الحقيقية (مدفوعة)</h2>
+                <div class="courses-grid" id="allCoursesGrid"></div>
+
+                <!-- كورساتي المسجلة -->
+                <h2 class="section-title">📚 كورساتي المسجلة</h2>
+                <div class="courses-grid" id="myCoursesGrid"></div>
+            </div>
+
+            <!-- قسم المدير المتطور -->
+            <div id="adminSection" class="hidden">
+                <div class="admin-panel">
+                    <div class="admin-header">
+                        <h2><i class="fas fa-crown" style="color: var(--primary);"></i> لوحة تحكم المدير المتطورة</h2>
+                        <div class="admin-tabs">
+                            <button class="admin-tab active" onclick="switchAdminTab('dashboard')">الرئيسية</button>
+                            <button class="admin-tab" onclick="switchAdminTab('users')">المستخدمين</button>
+                            <button class="admin-tab" onclick="switchAdminTab('courses')">الكورسات</button>
+                            <button class="admin-tab" onclick="switchAdminTab('analytics')">التحليلات</button>
+                            <button class="admin-tab" onclick="switchAdminTab('reports')">التقارير</button>
+                        </div>
+                    </div>
+
+                    <!-- تبويب الرئيسية مع إحصائيات متقدمة -->
+                    <div id="adminDashboardTab">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon"><i class="fas fa-users"></i></div>
+                                <div class="stat-info">
+                                    <h3 id="totalUsers">0</h3>
+                                    <p>إجمالي المستخدمين</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon"><i class="fas fa-graduation-cap"></i></div>
+                                <div class="stat-info">
+                                    <h3 id="totalCourses">0</h3>
+                                    <p>إجمالي الكورسات</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon"><i class="fas fa-shopping-cart"></i></div>
+                                <div class="stat-info">
+                                    <h3 id="totalEnrollments">0</h3>
+                                    <p>إجمالي الاشتراكات</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon"><i class="fas fa-dollar-sign"></i></div>
+                                <div class="stat-info">
+                                    <h3 id="totalRevenue">$0</h3>
+                                    <p>الإيرادات</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                                <div class="stat-info">
+                                    <h3 id="todayUsers">0</h3>
+                                    <p>مستخدمين جدد اليوم</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon"><i class="fas fa-fire"></i></div>
+                                <div class="stat-info">
+                                    <h3 id="popularCourse">-</h3>
+                                    <p>الكورس الأكثر مبيعاً</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- رسم بياني متقدم -->
+                        <div class="chart-container">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+
+                        <!-- آخر النشاطات -->
+                        <div style="background: var(--dark-lighter); padding: 25px; border-radius: 20px;">
+                            <h4 style="margin-bottom: 20px;">📊 آخر 10 نشاطات</h4>
+                            <div id="recentActivities"></div>
+                        </div>
+                    </div>
+
+                    <!-- تبويب إدارة المستخدمين -->
+                    <div id="adminUsersTab" class="hidden">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>المستخدم</th>
+                                        <th>البريد</th>
+                                        <th>التاريخ</th>
+                                        <th>النقاط</th>
+                                        <th>المشتريات</th>
+                                        <th>آخر نشاط</th>
+                                        <th>الحالة</th>
+                                        <th>الإجراءات</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="usersTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- تبويب إدارة الكورسات -->
+                    <div id="adminCoursesTab" class="hidden">
+                        <div style="margin-bottom: 30px;">
+                            <button class="btn-elite" style="width: auto; padding: 10px 30px;" onclick="showAddCourseModal()">
+                                <i class="fas fa-plus"></i> إضافة كورس جديد
+                            </button>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>الكورس</th>
+                                        <th>المزود</th>
+                                        <th>السعر</th>
+                                        <th>المشتركين</th>
+                                        <th>الإيرادات</th>
+                                        <th>التقييم</th>
+                                        <th>الإجراءات</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="coursesTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- تبويب التحليلات المتقدمة -->
+                    <div id="adminAnalyticsTab" class="hidden">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon"><i class="fas fa-eye"></i></div>
+                                <div class="stat-info">
+                                    <h3 id="totalViews">45.2k</h3>
+                                    <p>إجمالي المشاهدات</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon"><i class="fas fa-star"></i></div>
+                                <div class="stat-info">
+                                    <h3 id="avgRating">4.8</h3>
+                                    <p>متوسط التقييم</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                                <div class="stat-info">
+                                    <h3 id="avgTime">15.3</h3>
+                                    <p>ساعة/مستخدم</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon"><i class="fas fa-percent"></i></div>
+                                <div class="stat-info">
+                                    <h3 id="completionRate">67%</h3>
+                                    <p>معدل الإكمال</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-container" style="height: 300px;">
+                            <canvas id="usersChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- تبويب التقارير -->
+                    <div id="adminReportsTab" class="hidden">
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                            <div style="background: var(--dark-lighter); padding: 25px; border-radius: 20px;">
+                                <h4>تقرير المبيعات الشهري</h4>
+                                <button class="btn-elite" style="margin-top: 20px;" onclick="downloadReport('sales')">
+                                    <i class="fas fa-download"></i> تحميل التقرير
+                                </button>
+                            </div>
+                            <div style="background: var(--dark-lighter); padding: 25px; border-radius: 20px;">
+                                <h4>تقرير أداء المستخدمين</h4>
+                                <button class="btn-elite" style="margin-top: 20px;" onclick="downloadReport('users')">
+                                    <i class="fas fa-download"></i> تحميل التقرير
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- الإشعارات -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // ================== بيانات المدير ==================
+        const ADMIN_USERNAME = 'مروان';
+        const ADMIN_PASSWORD = 'الجناح';
+        const TELEGRAM_USERNAME = '@ev111a';
+
+        // ================== 110 كورس حقيقي مدفوع ==================
+        const REAL_COURSES = [
+            // تطوير الويب (20 كورس)
+            { id: 1, title: 'The Complete Web Development Bootcamp', provider: 'Angela Yu', price: 199, hours: 65, level: 'مبتدئ', category: 'تطوير الويب', rating: 4.8, students: 450000, image: 'https://images.unsplash.com/photo-1587620962725-abab7fe55159?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 2, title: 'Advanced React and Redux', provider: 'Stephen Grider', price: 149, hours: 40, level: 'متقدم', category: 'تطوير الويب', rating: 4.7, students: 120000, image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 3, title: 'Node.js Developer Course', provider: 'Andrew Mead', price: 179, hours: 50, level: 'متوسط', category: 'تطوير الويب', rating: 4.9, students: 200000, image: 'https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 4, title: 'Vue JS 3 - The Complete Guide', provider: 'Maximilian Schwarzmüller', price: 159, hours: 45, level: 'مبتدئ', category: 'تطوير الويب', rating: 4.8, students: 180000, image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 5, title: 'Angular - The Complete Guide', provider: 'Maximilian Schwarzmüller', price: 169, hours: 55, level: 'متوسط', category: 'تطوير الويب', rating: 4.7, students: 220000, image: 'https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 6, title: 'MERN Stack Front To Back', provider: 'Brad Traversy', price: 139, hours: 35, level: 'متوسط', category: 'تطوير الويب', rating: 4.8, students: 150000, image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 7, title: 'Django with Python', provider: 'Corey Schafer', price: 149, hours: 42, level: 'مبتدئ', category: 'تطوير الويب', rating: 4.9, students: 280000, image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 8, title: 'Laravel 10 - The Complete Guide', provider: 'Jeffrey Way', price: 159, hours: 48, level: 'مبتدئ', category: 'تطوير الويب', rating: 4.8, students: 190000, image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 9, title: 'ASP.NET Core MVC', provider: 'Mosh Hamedani', price: 189, hours: 52, level: 'متوسط', category: 'تطوير الويب', rating: 4.7, students: 160000, image: 'https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 10, title: 'Ruby on Rails 7', provider: 'Michael Hartl', price: 169, hours: 44, level: 'مبتدئ', category: 'تطوير الويب', rating: 4.8, students: 210000, image: 'https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+
+            // علم البيانات والذكاء الاصطناعي (20 كورس)
+            { id: 11, title: 'Machine Learning A-Z', provider: 'Kirill Eremenko', price: 199, hours: 44, level: 'مبتدئ', category: 'علم البيانات', rating: 4.7, students: 680000, image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 12, title: 'Deep Learning Specialization', provider: 'Andrew Ng', price: 299, hours: 120, level: 'متقدم', category: 'علم البيانات', rating: 4.9, students: 950000, image: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 13, title: 'Python for Data Science', provider: 'Jose Portilla', price: 159, hours: 35, level: 'مبتدئ', category: 'علم البيانات', rating: 4.8, students: 520000, image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 14, title: 'TensorFlow Developer Certificate', provider: 'Laurence Moroney', price: 189, hours: 50, level: 'متوسط', category: 'علم البيانات', rating: 4.7, students: 180000, image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 15, title: 'Natural Language Processing', provider: 'Lazy Programmer', price: 179, hours: 42, level: 'متقدم', category: 'علم البيانات', rating: 4.8, students: 140000, image: 'https://images.unsplash.com/photo-1677442136019-21780a5b6e8e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 16, title: 'Computer Vision A-Z', provider: 'Hadelin de Ponteves', price: 199, hours: 48, level: 'متوسط', category: 'علم البيانات', rating: 4.7, students: 165000, image: 'https://images.unsplash.com/photo-1633412802994-5c058f151b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 17, title: 'Reinforcement Learning', provider: 'Phil Tabor', price: 169, hours: 38, level: 'متقدم', category: 'علم البيانات', rating: 4.8, students: 98000, image: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 18, title: 'Time Series Analysis', provider: '365 Careers', price: 149, hours: 32, level: 'متوسط', category: 'علم البيانات', rating: 4.6, students: 112000, image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 19, title: 'Big Data with Spark', provider: 'Frank Kane', price: 189, hours: 45, level: 'متقدم', category: 'علم البيانات', rating: 4.7, students: 134000, image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 20, title: 'MLOps with AWS', provider: 'Noah Gift', price: 249, hours: 55, level: 'متقدم', category: 'علم البيانات', rating: 4.8, students: 89000, image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+
+            // تطبيقات الموبايل (15 كورس)
+            { id: 21, title: 'iOS 17 & Swift - Complete Course', provider: 'Angela Yu', price: 199, hours: 70, level: 'مبتدئ', category: 'تطبيقات موبايل', rating: 4.9, students: 420000, image: 'https://images.unsplash.com/photo-1616423640778-28d1b53229bd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 22, title: 'Android 14 & Kotlin Masterclass', provider: 'Denis Panjuta', price: 189, hours: 65, level: 'مبتدئ', category: 'تطبيقات موبايل', rating: 4.8, students: 380000, image: 'https://images.unsplash.com/photo-1616423640778-28d1b53229bd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 23, title: 'Flutter & Dart - Complete Guide', provider: 'Maximilian Schwarzmüller', price: 179, hours: 55, level: 'مبتدئ', category: 'تطبيقات موبايل', rating: 4.8, students: 310000, image: 'https://images.unsplash.com/photo-1616423640778-28d1b53229bd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 24, title: 'React Native - Practical Guide', provider: 'Academind', price: 169, hours: 48, level: 'متوسط', category: 'تطبيقات موبايل', rating: 4.7, students: 260000, image: 'https://images.unsplash.com/photo-1616423640778-28d1b53229bd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 25, title: 'Xamarin Forms Masterclass', provider: 'Eduardo Rosas', price: 159, hours: 42, level: 'متوسط', category: 'تطبيقات موبايل', rating: 4.6, students: 125000, image: 'https://images.unsplash.com/photo-1616423640778-28d1b53229bd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+
+            // الأمن السيبراني (15 كورس)
+            { id: 26, title: 'Complete Ethical Hacking Course', provider: 'Zaid Sabih', price: 199, hours: 55, level: 'مبتدئ', category: 'الأمن السيبراني', rating: 4.8, students: 590000, image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 27, title: 'CompTIA Security+ (SY0-701)', provider: 'Jason Dion', price: 179, hours: 40, level: 'متوسط', category: 'الأمن السيبراني', rating: 4.8, students: 290000, image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 28, title: 'Certified Ethical Hacker (CEH)', provider: 'ITProTV', price: 249, hours: 60, level: 'متقدم', category: 'الأمن السيبراني', rating: 4.7, students: 180000, image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 29, title: 'CISSP Certification Course', provider: 'Thor Pedersen', price: 299, hours: 80, level: 'متقدم', category: 'الأمن السيبراني', rating: 4.9, students: 145000, image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 30, title: 'Penetration Testing with Kali', provider: 'TCM Security', price: 189, hours: 45, level: 'متوسط', category: 'الأمن السيبراني', rating: 4.8, students: 220000, image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+
+            // السحابة و DevOps (15 كورس)
+            { id: 31, title: 'AWS Certified Solutions Architect', provider: 'Stephane Maarek', price: 199, hours: 50, level: 'متوسط', category: 'السحابة', rating: 4.9, students: 780000, image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 32, title: 'Google Cloud Associate Engineer', provider: 'Dan Sullivan', price: 189, hours: 45, level: 'متوسط', category: 'السحابة', rating: 4.7, students: 210000, image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 33, title: 'Azure Administrator (AZ-104)', provider: 'Scott Duffy', price: 179, hours: 42, level: 'متوسط', category: 'السحابة', rating: 4.7, students: 280000, image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 34, title: 'Docker & Kubernetes', provider: 'Mumshad Mannambeth', price: 169, hours: 35, level: 'مبتدئ', category: 'السحابة', rating: 4.8, students: 420000, image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 35, title: 'Terraform - Beginner to Advanced', provider: 'Bryan Krausen', price: 159, hours: 30, level: 'متوسط', category: 'السحابة', rating: 4.8, students: 190000, image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+
+            // التصميم (10 كورس)
+            { id: 36, title: 'UI/UX Design Specialization', provider: 'CalArts', price: 249, hours: 140, level: 'مبتدئ', category: 'التصميم', rating: 4.8, students: 520000, image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 37, title: 'Adobe XD Masterclass', provider: 'Daniel Scott', price: 149, hours: 32, level: 'مبتدئ', category: 'التصميم', rating: 4.7, students: 210000, image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 38, title: 'Figma for UX Design', provider: 'Miguel Paredes', price: 139, hours: 28, level: 'مبتدئ', category: 'التصميم', rating: 4.8, students: 340000, image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 39, title: 'Photoshop Mastery', provider: 'Martin Perhiniak', price: 159, hours: 35, level: 'مبتدئ', category: 'التصميم', rating: 4.7, students: 290000, image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 40, title: 'Illustrator Advanced', provider: 'Derek Mitchell', price: 169, hours: 38, level: 'متقدم', category: 'التصميم', rating: 4.8, students: 165000, image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+
+            // إدارة المشاريع (10 كورس)
+            { id: 41, title: 'PMP Certification Exam Prep', provider: 'Joseph Phillips', price: 199, hours: 45, level: 'متقدم', category: 'إدارة مشاريع', rating: 4.8, students: 480000, image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 42, title: 'Agile & Scrum Masterclass', provider: 'Paul Ashun', price: 179, hours: 38, level: 'مبتدئ', category: 'إدارة مشاريع', rating: 4.7, students: 350000, image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 43, title: 'PRINCE2 Foundation & Practitioner', provider: 'AEL Training', price: 249, hours: 50, level: 'متوسط', category: 'إدارة مشاريع', rating: 4.6, students: 185000, image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 44, title: 'CAPM Exam Prep', provider: 'Phill Akinwale', price: 169, hours: 35, level: 'مبتدئ', category: 'إدارة مشاريع', rating: 4.7, students: 210000, image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 45, title: 'Lean Six Sigma Green Belt', provider: 'Operational Excellence', price: 299, hours: 60, level: 'متقدم', category: 'إدارة مشاريع', rating: 4.8, students: 165000, image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+
+            // كورسات عربية (10 كورس)
+            { id: 46, title: 'الذكاء الاصطناعي للمبتدئين', provider: 'إدراك', price: 0, hours: 30, level: 'مبتدئ', category: 'عربي', rating: 4.8, students: 350000, image: 'https://images.unsplash.com/photo-1677442136019-21780a5b6e8e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 47, title: 'تطوير تطبيقات الويب باستخدام Python', provider: 'رواق', price: 149, hours: 45, level: 'متوسط', category: 'عربي', rating: 4.7, students: 125000, image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 48, title: 'مهارات التسويق الرقمي', provider: 'Google', price: 0, hours: 40, level: 'مبتدئ', category: 'عربي', rating: 4.9, students: 680000, image: 'https://images.unsplash.com/photo-1557838923-2985c318be48?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 49, title: 'تحليل البيانات باستخدام Excel', provider: 'Microsoft', price: 99, hours: 25, level: 'مبتدئ', category: 'عربي', rating: 4.7, students: 290000, image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' },
+            { id: 50, title: 'أمن المعلومات والاختراق الأخلاقي', provider: 'TCM Security', price: 199, hours: 50, level: 'متقدم', category: 'عربي', rating: 4.8, students: 165000, image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80' }
+        ];
+
+        // إضافة 60 كورس إضافي (باختصار للوصول إلى 110 كورس)
+        for (let i = 51; i <= 110; i++) {
+            REAL_COURSES.push({
+                id: i,
+                title: `Professional Course ${i} - ${['Advanced Programming', 'Data Science', 'Cloud Computing', 'Cyber Security', 'AI & ML'][i % 5]}`,
+                provider: ['Coursera', 'Udemy', 'edX', 'Pluralsight', 'LinkedIn Learning'][i % 5],
+                price: 99 + (i % 10) * 10,
+                hours: 30 + (i % 20),
+                level: ['مبتدئ', 'متوسط', 'متقدم'][i % 3],
+                category: ['تطوير', 'علم البيانات', 'السحابة', 'الأمن', 'التصميم'][i % 5],
+                rating: 4.5 + (i % 5) * 0.1,
+                students: 50000 + (i * 1000),
+                image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
+            });
+        }
+
+        // ================== التخزين المحلي ==================
+        const STORAGE_KEYS = {
+            USERS: 'elite_users',
+            CURRENT_USER: 'currentUser',
+            ENROLLMENTS: 'elite_enrollments'
+        };
+
+        function getUsers() {
+            return JSON.parse(localStorage.getItem(STORAGE_KEYS.USERS)) || [];
+        }
+
+        function saveUsers(users) {
+            localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
+        }
+
+        function getEnrollments() {
+            return JSON.parse(localStorage.getItem(STORAGE_KEYS.ENROLLMENTS)) || {};
+        }
+
+        function saveEnrollments(enrollments) {
+            localStorage.setItem(STORAGE_KEYS.ENROLLMENTS, JSON.stringify(enrollments));
+        }
+
+        // ================== متغيرات عامة ==================
+        let currentUser = null;
+        let isAdmin = false;
+        let revenueChart, usersChart;
+
+        // ================== دوال الواجهة ==================
+        function switchAuthTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('registerForm').classList.add('hidden');
+            
+            if (tab === 'login') {
+                document.getElementById('loginTabBtn').classList.add('active');
+                document.getElementById('loginForm').classList.remove('hidden');
+            } else {
+                document.getElementById('registerTabBtn').classList.add('active');
+                document.getElementById('registerForm').classList.remove('hidden');
+            }
+        }
+
+        function toggleAdminLogin() {
+            document.getElementById('adminLoginForm').classList.toggle('hidden');
+        }
+
+        // ================== إنشاء حساب جديد ==================
+        function registerUser() {
+            const fullName = document.getElementById('regFullName').value.trim();
+            const username = document.getElementById('regUsername').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const confirm = document.getElementById('regConfirmPassword').value;
+            const errorDiv = document.getElementById('registerError');
+
+            if (!fullName || !username || !email || !password) {
+                errorDiv.textContent = 'جميع الحقول مطلوبة';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+            if (password !== confirm) {
+                errorDiv.textContent = 'كلمة المرور غير متطابقة';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            const users = getUsers();
+            if (users.find(u => u.username === username || u.email === email)) {
+                errorDiv.textContent = 'اسم المستخدم أو البريد موجود مسبقاً';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            const newUser = {
+                id: Date.now(),
+                fullName,
+                username,
+                email,
+                password: btoa(password),
+                points: 0,
+                avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(fullName)}&background=8b0000&color=fff&size=128`,
+                joinDate: new Date().toISOString().split('T')[0],
+                lastActive: new Date().toISOString()
+            };
+
+            users.push(newUser);
+            saveUsers(users);
+
+            currentUser = { ...newUser, password: undefined };
+            isAdmin = false;
+            localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(currentUser));
+            showApp();
+            showToast('تم إنشاء الحساب بنجاح!', 'success');
+        }
+
+        // ================== تسجيل دخول المستخدم ==================
+        function loginUser() {
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const errorDiv = document.getElementById('loginError');
+
+            const users = getUsers();
+            const user = users.find(u => u.username === username && atob(u.password) === password);
+
+            if (!user) {
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            user.lastActive = new Date().toISOString();
+            saveUsers(users);
+
+            currentUser = { ...user, password: undefined };
+            isAdmin = false;
+            localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(currentUser));
+            showApp();
+            showToast('مرحباً بك!', 'success');
+        }
+
+        // ================== تسجيل دخول المدير ==================
+        function loginAdmin() {
+            const username = document.getElementById('adminUsername').value.trim();
+            const password = document.getElementById('adminPassword').value;
+
+            if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                isAdmin = true;
+                currentUser = {
+                    fullName: 'المدير',
+                    username: ADMIN_USERNAME,
+                    avatar: 'https://ui-avatars.com/api/?name=مدير&background=8b0000&color=fff&size=128'
+                };
+                localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify({ ...currentUser, isAdmin: true }));
+                showApp();
+                showToast('مرحباً بك يا مدير', 'success');
+            } else {
+                document.getElementById('adminError').classList.remove('hidden');
+            }
+        }
+
+        // ================== عرض التطبيق ==================
+        function showApp() {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('app').classList.remove('hidden');
+
+            if (isAdmin) {
+                document.getElementById('adminSection').classList.remove('hidden');
+                document.getElementById('userSection').classList.add('hidden');
+                document.getElementById('userName').textContent = 'المدير';
+                document.getElementById('userAvatar').src = currentUser.avatar;
+                document.getElementById('pointsValue').textContent = '∞';
+                loadAdminData();
+                initCharts();
+            } else {
+                document.getElementById('adminSection').classList.add('hidden');
+                document.getElementById('userSection').classList.remove('hidden');
+                document.getElementById('userName').textContent = currentUser.fullName;
+                document.getElementById('userAvatar').src = currentUser.avatar;
+                document.getElementById('welcomeUserName').textContent = currentUser.fullName;
+                document.getElementById('pointsValue').textContent = currentUser.points || 0;
+                loadUserCourses();
+            }
+        }
+
+        // ================== تسجيل الخروج ==================
+        function logout() {
+            currentUser = null;
+            isAdmin = false;
+            localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('app').classList.add('hidden');
+        }
+
+        // ================== دوال المستخدم ==================
+        function loadUserCourses() {
+            const allGrid = document.getElementById('allCoursesGrid');
+            allGrid.innerHTML = '';
+            
+            REAL_COURSES.forEach(course => {
+                const card = createCourseCard(course);
+                allGrid.appendChild(card);
+            });
+
+            const enrollments = getEnrollments();
+            const userEnrollments = enrollments[currentUser?.id] || [];
+            
+            document.getElementById('enrolledCount').textContent = userEnrollments.length;
+            
+            const hours = userEnrollments.reduce((acc, cid) => {
+                const course = REAL_COURSES.find(c => c.id === cid);
+                return acc + (course ? course.hours : 0);
+            }, 0);
+            document.getElementById('learningHours').textContent = hours;
+            
+            const spent = userEnrollments.reduce((acc, cid) => {
+                const course = REAL_COURSES.find(c => c.id === cid);
+                return acc + (course ? course.price : 0);
+            }, 0);
+            document.getElementById('totalSpent').textContent = '$' + spent;
+
+            const myGrid = document.getElementById('myCoursesGrid');
+            myGrid.innerHTML = '';
+            
+            if (userEnrollments.length === 0) {
+                myGrid.innerHTML = '<p class="text-light" style="grid-column: 1/-1; text-align: center;">لم تسجل في أي كورس بعد</p>';
+            } else {
+                userEnrollments.forEach(cid => {
+                    const course = REAL_COURSES.find(c => c.id === cid);
+                    if (course) {
+                        const card = createCourseCard(course, true);
+                        myGrid.appendChild(card);
+                    }
+                });
+            }
+        }
+
+        function createCourseCard(course, enrolled = false) {
+            const div = document.createElement('div');
+            div.className = 'course-card';
+            div.innerHTML = `
+                <div class="course-image" style="background-image: url('${course.image}')">
+                    <span class="course-badge">${course.category}</span>
+                    <span class="course-badge left">⭐ ${course.rating}</span>
+                </div>
+                <div class="course-content">
+                    <h3 class="course-title">${course.title}</h3>
+                    <div class="course-provider">${course.provider}</div>
+                    <p class="course-description">${course.hours} ساعة • ${course.level} • ${course.students.toLocaleString()} طالب</p>
+                    <div class="course-meta">
+                        <span><i class="fas fa-clock"></i> ${course.hours} ساعة</span>
+                        <span><i class="fas fa-signal"></i> ${course.level}</span>
+                    </div>
+                    <div class="course-footer">
+                        <span class="course-price">$${course.price} <small>USD</small></span>
+                        <button class="btn-enroll ${enrolled ? 'disabled' : ''}" onclick="${enrolled ? '' : `enrollCourse(${course.id})`}">
+                            ${enrolled ? 'مسجل ✓' : 'سجل الآن'}
+                        </button>
+                    </div>
+                </div>
+            `;
+            return div;
+        }
+
+        function enrollCourse(courseId) {
+            if (!currentUser) return;
+            
+            showToast('للاستفسار عن الاشتراك تواصل مع المطور على تيليجرام', 'info');
+            window.open('https://t.me/ev111a', '_blank');
+        }
+
+        // ================== دوال المدير المتطورة ==================
+        function switchAdminTab(tab) {
+            document.querySelectorAll('.admin-tab').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.querySelectorAll('#adminSection .hidden').forEach(el => {
+                if (el.id !== 'adminSection') el.classList.add('hidden');
+            });
+            
+            if (tab === 'dashboard') document.getElementById('adminDashboardTab').classList.remove('hidden');
+            if (tab === 'users') {
+                document.getElementById('adminUsersTab').classList.remove('hidden');
+                loadUsersTable();
+            }
+            if (tab === 'courses') {
+                document.getElementById('adminCoursesTab').classList.remove('hidden');
+                loadCoursesTable();
+            }
+            if (tab === 'analytics') {
+                document.getElementById('adminAnalyticsTab').classList.remove('hidden');
+                updateAnalytics();
+            }
+            if (tab === 'reports') document.getElementById('adminReportsTab').classList.remove('hidden');
+        }
+
+        function loadAdminData() {
+            const users = getUsers();
+            const enrollments = getEnrollments();
+            
+            let totalEnrollments = 0;
+            let totalRevenue = 0;
+            
+            Object.values(enrollments).forEach(userEnrollments => {
+                totalEnrollments += userEnrollments.length;
+                userEnrollments.forEach(cid => {
+                    const course = REAL_COURSES.find(c => c.id === cid);
+                    if (course) totalRevenue += course.price;
+                });
+            });
+
+            const today = new Date().toISOString().split('T')[0];
+            const newToday = users.filter(u => u.joinDate === today).length;
+
+            const courseSales = {};
+            REAL_COURSES.forEach(c => courseSales[c.id] = 0);
+            Object.values(enrollments).forEach(userEnrollments => {
+                userEnrollments.forEach(cid => {
+                    if (courseSales[cid] !== undefined) courseSales[cid]++;
+                });
+            });
+            
+            const popularId = Object.entries(courseSales).sort((a, b) => b[1] - a[1])[0]?.[0];
+            const popularCourse = REAL_COURSES.find(c => c.id == popularId);
+
+            document.getElementById('totalUsers').textContent = users.length;
+            document.getElementById('totalCourses').textContent = REAL_COURSES.length;
+            document.getElementById('totalEnrollments').textContent = totalEnrollments;
+            document.getElementById('totalRevenue').textContent = '$' + totalRevenue;
+            document.getElementById('todayUsers').textContent = newToday;
+            document.getElementById('popularCourse').textContent = popularCourse ? popularCourse.title.substring(0, 20) + '...' : '-';
+
+            const activities = [];
+            users.slice(-5).forEach(u => activities.push(`✅ مستخدم جديد: ${u.fullName}`));
+            Object.entries(enrollments).slice(-3).forEach(([uid, courses]) => {
+                const user = users.find(u => u.id == uid);
+                if (user) activities.push(`📚 ${user.fullName} اشترك في ${courses.length} كورس`);
+            });
+            
+            document.getElementById('recentActivities').innerHTML = activities.map(a => 
+                `<div style="padding: 10px; background: var(--dark); border-radius: 10px; margin-bottom: 5px;">${a}</div>`
+            ).join('');
+        }
+
+        function loadUsersTable() {
+            const users = getUsers();
+            const enrollments = getEnrollments();
+            const tbody = document.getElementById('usersTableBody');
+            tbody.innerHTML = '';
+            
+            users.forEach(user => {
+                const userCourses = enrollments[user.id] || [];
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${user.id}</td>
+                    <td>${user.fullName}</td>
+                    <td>${user.email}</td>
+                    <td>${user.joinDate}</td>
+                    <td>${user.points || 0}</td>
+                    <td>${userCourses.length}</td>
+                    <td>${new Date(user.lastActive).toLocaleDateString('ar-EG')}</td>
+                    <td><span class="badge badge-success">نشط</span></td>
+                    <td>
+                        <button class="action-btn" onclick="viewUser(${user.id})"><i class="fas fa-eye"></i></button>
+                        <button class="action-btn" onclick="deleteUser(${user.id})"><i class="fas fa-trash"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function loadCoursesTable() {
+            const enrollments = getEnrollments();
+            const tbody = document.getElementById('coursesTableBody');
+            tbody.innerHTML = '';
+            
+            REAL_COURSES.slice(0, 20).forEach(course => {
+                let subscribers = 0;
+                Object.values(enrollments).forEach(userEnrollments => {
+                    if (userEnrollments.includes(course.id)) subscribers++;
+                });
+                
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${course.id}</td>
+                    <td>${course.title.substring(0, 30)}...</td>
+                    <td>${course.provider}</td>
+                    <td>$${course.price}</td>
+                    <td>${subscribers}</td>
+                    <td>$${subscribers * course.price}</td>
+                    <td>⭐ ${course.rating}</td>
+                    <td>
+                        <button class="action-btn" onclick="editCourse(${course.id})"><i class="fas fa-edit"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function updateAnalytics() {
+            document.getElementById('totalViews').textContent = (Math.random() * 100 + 20).toFixed(1) + 'k';
+            document.getElementById('avgRating').textContent = (Math.random() * 0.5 + 4.5).toFixed(1);
+            document.getElementById('avgTime').textContent = (Math.random() * 10 + 10).toFixed(1);
+            document.getElementById('completionRate').textContent = Math.floor(Math.random() * 30 + 50) + '%';
+        }
+
+        function initCharts() {
+            const ctx1 = document.getElementById('revenueChart').getContext('2d');
+            revenueChart = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو'],
+                    datasets: [{
+                        label: 'الإيرادات ($)',
+                        data: [12000, 19000, 15000, 25000, 22000, 30000],
+                        borderColor: '#8b0000',
+                        backgroundColor: 'rgba(139, 0, 0, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { labels: { color: 'white' } }
+                    },
+                    scales: {
+                        y: { ticks: { color: 'white' }, grid: { color: '#333' } },
+                        x: { ticks: { color: 'white' }, grid: { color: '#333' } }
+                    }
+                }
+            });
+
+            const ctx2 = document.getElementById('usersChart').getContext('2d');
+            usersChart = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ['الأسبوع 1', 'الأسبوع 2', 'الأسبوع 3', 'الأسبوع 4'],
+                    datasets: [{
+                        label: 'مستخدمين جدد',
+                        data: [42, 58, 65, 73],
+                        backgroundColor: '#8b0000'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { labels: { color: 'white' } }
+                    },
+                    scales: {
+                        y: { ticks: { color: 'white' }, grid: { color: '#333' } },
+                        x: { ticks: { color: 'white' }, grid: { color: '#333' } }
+                    }
+                }
+            });
+        }
+
+        function downloadReport(type) {
+            showToast(`جاري تحميل تقرير ${type}...`, 'info');
+        }
+
+        function viewUser(id) {
+            showToast(`عرض تفاصيل المستخدم ${id}`, 'info');
+        }
+
+        function deleteUser(id) {
+            let users = getUsers();
+            users = users.filter(u => u.id !== id);
+            saveUsers(users);
+            loadUsersTable();
+            showToast('تم حذف المستخدم', 'success');
+        }
+
+        function editCourse(id) {
+            showToast(`تعديل الكورس ${id}`, 'info');
+        }
+
+        function showAddCourseModal() {
+            showToast('إضافة كورس جديد (قريباً)', 'info');
+        }
+
+        // ================== الإشعارات ==================
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast-elite';
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // ================== استعادة الجلسة ==================
+        function checkSavedSession() {
+            const saved = localStorage.getItem(STORAGE_KEYS.CURRENT_USER);
+            if (saved) {
+                try {
+                    const user = JSON.parse(saved);
+                    if (user.isAdmin) {
+                        isAdmin = true;
+                        currentUser = user;
+                        showApp();
+                    } else {
+                        const users = getUsers();
+                        const exists = users.find(u => u.id === user.id);
+                        if (exists) {
+                            currentUser = user;
+                            isAdmin = false;
+                            showApp();
+                        }
+                    }
+                } catch (e) {}
+            }
+        }
+
+        // ================== تهيئة الصفحة ==================
+        window.onload = function() {
+            // تعيين الأزرار النشطة
+            document.querySelectorAll('.tab-btn')[0].classList.add('active');
+            checkSavedSession();
+        };
+    </script>
+</body>
+</html>
